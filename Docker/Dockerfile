@@ -24,6 +24,6 @@ RUN pip install -r docker_requirements.txt
 COPY . /app/
 
 # Install the database
-RUN sqlite3 /app/database/base.db < /app/setup_resources/base_schema.sql
+RUN sqlite3 /tmp/base.db < base_schema.sql
 
-CMD ["python", "server.py"]
+CMD ["bash", "run_server_dev.sh"]

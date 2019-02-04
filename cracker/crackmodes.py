@@ -118,15 +118,7 @@ class WordlistBasedCrackMode(CrackMode):
         Crack mode using a wordlist
     """
     name = 'wordlist'
-    
-    def load_wordlist_dictionary():
-        conf.wordlist_dictionary.clear()
-        for root, dirs, files in os.walk(conf.wordlists_location):
-            del dirs[:]
-            for filename in files:
-                conf.wordlist_dictionary[filename]=filename
-        return(conf.wordlist_dictionary)
-    
+
     def launch_call(self, output_file, wordlist, rule=None):
         """
             Look for the wordlist (safely), and optionnaly apply a rule
@@ -137,9 +129,6 @@ class WordlistBasedCrackMode(CrackMode):
 
         # Find the wordlist file from its name
         wordlist_file = None
-        load_wordlist_dictionary()
-        wordlist_file = conf.wordlists_location + wordlist
-        '''
         for wordlist_pair in conf.wordlist_dictionary:
             # For all available dictionnaries
             if wordlist == slugify(wordlist_pair):
@@ -149,7 +138,7 @@ class WordlistBasedCrackMode(CrackMode):
         
         if not wordlist_file:
             raise ValueError("Unable to find wordlist %s!" % wordlist)
-        '''
+
         extra_options = []
 
         # Rule variations on a wordlist
