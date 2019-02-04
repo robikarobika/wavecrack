@@ -24,7 +24,6 @@ from cracker import hashID
 from cracker.helper import requires_auth, check_perms, parameters_getter, get_hash_type_from_hash_id, generate_password_and_statistics_list, get_memory_info, checking_mask_form, checking_crackMode
 from cracker.tasks import hashcatCrack
 from cracker.log_parser import parse_log
-from collections import OrderedDict
 
 def connect_db():
     """
@@ -32,14 +31,21 @@ def connect_db():
     """
     return sqlite3.connect(app.config['DATABASE'])
 
-
+def load_wordlist_dictionary():
+    conf.wordlist_dictionary.clear()
+    for root, dirs, files in os.walk(conf.wordlists_location):
+        del dirs[:]
+        for filename in files:
+            conf.wordlist_dictionary[filename]=filename
+    return(conf.wordlist_dictionary)
+    
 @app.before_request
 def before_request():
     """
         Connecting to the database before each request
     """
     g.db = connect_db()
-
+    load_wordlist_dictionary()
 
 @app.teardown_request
 def teardown_request(exception):
