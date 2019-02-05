@@ -112,20 +112,19 @@ class CrackMode():
             for _ in range(6)
         )
 
+def load_wordlist_dictionary():
+    conf.wordlist_dictionary.clear()
+    for root, dirs, files in os.walk(conf.wordlists_location):
+        del dirs[:]
+        for filename in files:
+            conf.wordlist_dictionary[filename]=filename
+    return(conf.wordlist_dictionary)
 
 class WordlistBasedCrackMode(CrackMode):
     """
         Crack mode using a wordlist
     """
     name = 'wordlist'
-    
-    def load_wordlist_dictionary():
-        conf.wordlist_dictionary.clear()
-        for root, dirs, files in os.walk(conf.wordlists_location):
-            del dirs[:]
-            for filename in files:
-                conf.wordlist_dictionary[filename]=filename
-        return(conf.wordlist_dictionary)
     
     def launch_call(self, output_file, wordlist, rule=None):
         """
