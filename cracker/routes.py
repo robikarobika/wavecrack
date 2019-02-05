@@ -11,7 +11,7 @@ import StringIO
 import json
 import cracker.hashcat_hashes as hashcatconf
 
-import collections
+from collections import OrderedDict
 
 from subprocess import call, check_output
 from time import strftime
