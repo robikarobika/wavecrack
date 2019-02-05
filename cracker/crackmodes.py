@@ -4,6 +4,7 @@ import random
 import string
 import tempfile
 import time
+import os
 
 from slugify import slugify
 
